@@ -2,35 +2,22 @@
 {
     public class Game
     {
-        private int _score;
-        private bool _isSecondRoll;
-        private int _firstRollInFrame;
-        private bool _hadSpare;
+        private int[] _rolls = new int[21];
+        private int _index;
 
         public void AddRoll(int pins)
         {
-            if (_isSecondRoll)
-            {
-                if (pins + _firstRollInFrame == 10)
-                    _hadSpare = true;
-                _firstRollInFrame = 0;
-            }
-            else
-            {
-                if (_hadSpare)
-                {
-                    _score += pins;
-                    _hadSpare = false;
-                }
-                _firstRollInFrame = pins;
-            }
-            _score += pins;
-            _isSecondRoll = !_isSecondRoll;
+            _rolls[_index++] = pins;
         }
 
         public int GetScore()
         {
-            return _score;
+            var score = 0;
+            for (var rollIndex = 0; rollIndex <= 20; rollIndex++)
+            {
+                score += _rolls[rollIndex];
+            }
+            return score;
         }
     }
 }
