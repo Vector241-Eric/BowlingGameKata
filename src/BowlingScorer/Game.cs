@@ -2,7 +2,7 @@
 {
     public class Game
     {
-        private int[] _rolls = new int[21];
+        private readonly int[] _rolls = new int[21];
         private int _index;
 
         public void AddRoll(int pins)
@@ -13,9 +13,23 @@
         public int GetScore()
         {
             var score = 0;
-            for (var rollIndex = 0; rollIndex <= 20; rollIndex++)
+            var rollIndex = 0;
+            while (rollIndex <= 19)
             {
-                score += _rolls[rollIndex];
+                //Spare
+                if (_rolls[rollIndex] + _rolls[rollIndex + 1] == 10)
+                {
+                    score += _rolls[rollIndex];
+                    score += _rolls[rollIndex + 1];
+                    score += _rolls[rollIndex + 2];
+                }
+                //Regular Case
+                else
+                {
+                    score += _rolls[rollIndex];
+                    score += _rolls[rollIndex + 1];
+                }
+                rollIndex += 2;
             }
             return score;
         }
