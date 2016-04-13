@@ -14,21 +14,20 @@
         {
             var score = 0;
             var rollIndex = 0;
-            for(int frame = 1; frame <= 10; frame++)
+            for (int frame = 1; frame <= 10; frame++)
             {
                 //Stike
-                if (_rolls[rollIndex] == 10)
+                if (IsStrike(rollIndex))
                 {
-                    score += _rolls[rollIndex];
+                    score += 10;
                     score += _rolls[rollIndex + 1];
                     score += _rolls[rollIndex + 2];
                     rollIndex += 1;
                 }
                 //Spare
-                else if (_rolls[rollIndex] + _rolls[rollIndex + 1] == 10)
+                else if (IsSpare(rollIndex))
                 {
-                    score += _rolls[rollIndex];
-                    score += _rolls[rollIndex + 1];
+                    score += 10;
                     score += _rolls[rollIndex + 2];
                     rollIndex += 2;
                 }
@@ -41,6 +40,16 @@
                 }
             }
             return score;
+        }
+
+        private bool IsSpare(int rollIndex)
+        {
+            return _rolls[rollIndex] + _rolls[rollIndex + 1] == 10;
+        }
+
+        private bool IsStrike(int rollIndex)
+        {
+            return _rolls[rollIndex] == 10;
         }
     }
 }
