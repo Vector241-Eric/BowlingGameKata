@@ -51,5 +51,20 @@ namespace UnitTests
                 game.GetScore().ShouldEqual(16);
             }
         }
+
+        [TestFixture]
+        public class When_all_strikes_are_rolled
+        {
+            [Test]
+            public void Should_score_300()
+            {
+                var game = new Game();
+
+                for (int roll = 0; roll < 12; roll++)
+                    game.AddRoll(10);
+
+                game.GetScore().ShouldEqual(300);
+            }
+        }
     }
 }
